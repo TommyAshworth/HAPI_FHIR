@@ -39,6 +39,13 @@ public class TestApplication {
       System.out.println("Found " + results.getEntry().size() + " patients named 'smith'");
       
       //output finds 10 patients with name of smith
+      
+      //Print the resource ID for each matching resource
+      //for loop outputs resource ID's for each member named smith in our Bundle resource
+      for (Bundle.BundleEntryComponent entry : results.getEntry()) {
+    	  Patient p = (Patient) entry.getResource();
+    	  System.out.println("ID: " + p.getIdElement().getIdPart());
+      }
    }
 
 }
