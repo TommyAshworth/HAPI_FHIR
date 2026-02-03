@@ -36,7 +36,9 @@ public class TestApplication {
     		  .where(Patient.FAMILY.matches().value("smith"))
     		  .returnBundle(Bundle.class)
     		  .execute();
-      System.out.println("Found " + results.getEntry().size() + " patients named 'duck'");
+      System.out.println("Found " + results.getEntry().size() + " patients named 'smith'");
+      
+      //output finds 10 patients with name of smith
    }
 
 }
