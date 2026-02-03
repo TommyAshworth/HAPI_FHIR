@@ -1,8 +1,10 @@
 package test;
 
 import ca.uhn.fhir.context.FhirContext;
+import ca.uhn.fhir.rest.api.MethodOutcome;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
 
+import org.hl7.fhir.instance.model.api.IIdType;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.Patient;
 
@@ -46,6 +48,41 @@ public class TestApplication {
     	  Patient p = (Patient) entry.getResource();
     	  System.out.println("ID: " + p.getIdElement().getIdPart());
       }
+      
+      
+      // Use a FHIR Create operation to create a new Patient resource on the server. Give it your name, or a fictional name you make up.
+      
+      Patient patient1 = new Patient();
+      //populate the patient object
+      patient1.addIdentifier().setSystem("urn:system").setValue("12345");
+      patient1.addName().setFamily("Ash").addGiven("Tom");
+      
+      /*
+       * Invoke the server create method (and sent pretty printed JSON
+       * encoding to the server
+       * instead of the default which is non-pretty printed XML)
+       */
+      
+      MethodOutcome outcome = client.create()
+    		  .resource(patient1)
+    		  .prettyPrint()
+    		  .encodedJson()
+    		  .execute();
+      
+      /*
+       * Methodoutcome object will contain information about the response from the server
+       * including the ID of the created resource, the operationoutcome response, etc
+      */
+      
+      IIdType id = outcome.getId();
+      System.out.println("Got ID: " + id.getValue());
+      //output shows new patient ID created
+      
+      //Read the new patient1 resource
+      patient1 = 
+    		  client.read().resource(Patient.class).withId("8c4b0a23-caef-4d01-9d99-85cf1fbee7e4").execute();
+      
+      
    }
 
 }
