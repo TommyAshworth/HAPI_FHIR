@@ -77,10 +77,7 @@ public class TestApplication {
       IIdType id = outcome.getId();
       System.out.println("Got ID: " + id.getValue());
       //output shows new patient ID created
-      
-      //Read the new patient1 resource
-      patient1 = 
-    		  client.read().resource(Patient.class).withId("8c4b0a23-caef-4d01-9d99-85cf1fbee7e4").execute();
+     
       
       
    }
